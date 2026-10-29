@@ -512,7 +512,6 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--n
     <div class="done" id="done" hidden>
       <p class="big">You're <span>IN!</span> 🤸</p>
       <p id="doneMsg"></p>
-      <a class="btn btn-primary" id="doneWa" href="#" target="_blank" rel="noopener" hidden>Mandar comprobante por WhatsApp 📱</a>
       <span class="test-tag" id="testTag" hidden>Modo prueba · no se envió nada</span>
       <button class="btn btn-ghost" id="again">Volver a la web</button>
     </div>
@@ -549,9 +548,7 @@ const SITE = {
     "https://www.tiktok.com/@dnlab/video/7637177766651186453",
     "https://www.tiktok.com/@dnlab/video/7701820092836842773"
   ],
-  INSTAGRAM: { sayhi: "sayhienglish_", ally: "sayhially" },
-  // WhatsApp de cada profe para mandar el comprobante (sin + ni espacios). Vacío = se usa el de Ludmila
-  WHATSAPP: { ludmila: "5491158632924", ally: "5491158632924" }
+  INSTAGRAM: { sayhi: "sayhienglish_", ally: "sayhially" }
 };
 
 /* Textos y preguntas de cada programa. Precio, fecha y cupo se pisan con lo que diga el Google Sheet. */
@@ -812,8 +809,6 @@ form.addEventListener("submit", async e => {
     $("doneMsg").innerHTML = wait
       ? `Yaaay ${first}! Ya estás en la lista de espera de <b>${esc(p.name)}</b>. Te mandé un mail a <b>${esc(payload.mail)}</b> y apenas se libere un lugar te escribo por WhatsApp 🙌`
       : `Yaaay ${first}! Te mandé un mail a <b>${esc(payload.mail)}</b> con todos los datos para pagar <b>${esc(p.name)}</b> (fijate en spam por las dudas). Cuando hagas la transferencia, mandame el comprobante por WhatsApp y tu lugar queda reservado. You can do it! ❤️`;
-    $("doneWa").hidden = wait;
-    $("doneWa").href = `https://wa.me/${SITE.WHATSAPP[p.profe || "ludmila"] || SITE.WHATSAPP.ludmila}?text=${encodeURIComponent(`Hola! Soy ${payload.nombre} 👋 Te mando el comprobante de ${p.name} 🙌`)}`;
     $("testTag").hidden = !!SITE.SCRIPT_URL;
     form.reset(); renderExtra();
     form.hidden = true; done.hidden = false; overlay.querySelector(".drawer").scrollTop = 0;
